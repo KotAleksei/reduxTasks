@@ -2,7 +2,6 @@ const MOVE_UP = 'MOVE_UP';
 const MOVE_DOWN = 'MOVE_DOWN';
 const ORDER = 'ORDER';
 
-
 Array.prototype.move = function (index, step) {
   const saveThis = [...this];
   let next = saveThis[index + step];
@@ -12,16 +11,13 @@ Array.prototype.move = function (index, step) {
 }
 
 export const order = (item) => ({type: ORDER, itemMove: item})
-
-
 export const moveUp = (items, index) => {
-  return {
+  return ({
     type: MOVE_UP,
     items: items.move(index, -1),
     index: index - 1
-  }
-}
-
+  })
+};
 export const moveDown = (items, index) => ({
   type: MOVE_DOWN,
   items: items.move(index, 1),
@@ -29,7 +25,7 @@ export const moveDown = (items, index) => ({
 });
 
  const foodReducer = (state = {}, action ) => {
-   console.log( action);
+   
   switch(action.type) {
     case ORDER: 
       return {
@@ -40,13 +36,13 @@ export const moveDown = (items, index) => ({
     case MOVE_DOWN: 
       return {
         ...state,
-        items: action.items,
+        foods: action.items,
         index: action.index
       };
     case MOVE_UP:
       return {
         ...state,
-        items: action.items,
+        foods: action.items,
         index: action.index
       };
     default:

@@ -1,33 +1,46 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux'; 
 import { getFoods, getIndex, getItemMove } from '../store';
 import { order, moveUp, moveDown } from './foodReducer';
 
-const Food = ({foods, index, itemMove, order}) => {
-  // console.log(itemMove, index);
+const Food = ({foods, index, itemMove, order, moveUp, moveDown}) => {
+  const disabledMoveUpBtn = itemMove && index > 0 ? false : true;
+  const disabledMoveDownBtn = itemMove && index < foods.length - 1 ? false : true;
+  const foodRef = useRef(null);
+  const loseFocus = (event) => { 
+    const foodsAppElement = event.target.parentElement;
+    return foodsAppElement === foodRef.current ? null : order('');
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', loseFocus);
+    return () => {
+      document.removeEventListener('click', loseFocus);
+    }
+  })
+ 
   return (
-    <>
-      <button disabled={itemMove && index > 0 ? false : true} onClick={() => moveUp(foods, index)} >
+    <div className='foodsApp' ref={foodRef} >
+      <h2 className="foodsTittle">Ordering food</h2>
+      <button disabled={disabledMoveUpBtn} onClick={() => moveUp(foods, index)} className="moveUpBtn">
         Move Up
       </button>
-      <ul>
-        { foods.map(food => (
-            <li 
+        { foods.map((food, idx) => (
+            <div 
               key={food}
               onClick={() => order(food)}
+              className={food === itemMove ? `${food} selectedFood` : `${food}`}
             >
-              { food }
-            </li>
+              
+              { idx + 1 } { food }
+            </div>
           )) }
-      </ul>
-      <button disabled={itemMove && index < foods.length - 1 ? false : true} onClick={() => moveDown(foods, index)}> 
+      <button disabled={disabledMoveDownBtn} onClick={() => moveDown(foods, index)} className="moveDownBtn"> 
           Move Down
       </button>
-    </>
+      </div>
   )
 }
-
-
 const getData = state => ({
   foods: getFoods(state),
   index: getIndex(state),

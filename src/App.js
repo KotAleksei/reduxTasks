@@ -11,20 +11,20 @@ import Food from './components/orderingFood/Food';
 
 function App() {
   return (
-    <Router>
+    <Router >
       <nav>
         <ul>
           <li>
-            <NavLink to='/' exact >Home</NavLink>
+            <NavLink to='/reduxTasks' exact >Home</NavLink>
           </li>
           <li>
-            <NavLink to='/food' >Food</NavLink>
+            <NavLink to='/reduxTasks/food' >Food</NavLink>
           </li>
         </ul>
       </nav>
       <Switch>
-        <Route path='/' exact component={HomePage} />
-        <Route path='/food' component={Food}/>
+          <Route path='/reduxTasks' exact component={HomePage} />
+          <Route path='/reduxTasks/food' component={Food}/>
       </Switch>
     </Router>
   );
