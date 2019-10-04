@@ -1,15 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux'; 
-import { getFoods, getIndex, getItemMove } from '../store';
+import { getFoods, getFoodIndex, getFoodItemMove } from '../store';
 import { order, moveUp, moveDown } from './foodReducer';
+import './style.css';
 
 const Food = ({foods, index, itemMove, order, moveUp, moveDown}) => {
   const disabledMoveUpBtn = itemMove && index > 0 ? false : true;
   const disabledMoveDownBtn = itemMove && index < foods.length - 1 ? false : true;
   const foodRef = useRef(null);
   const loseFocus = (event) => { 
-    const foodsAppElement = event.target.parentElement;
-    return foodsAppElement === foodRef.current ? null : order('');
+    const childrenAppElement = event.target.parentElement === foodRef.current;
+    const foodsAppElement = event.target === foodRef.current;
+    
+    return (foodsAppElement || childrenAppElement) ? null : order('');
   }
 
   useEffect(() => {
@@ -31,7 +34,6 @@ const Food = ({foods, index, itemMove, order, moveUp, moveDown}) => {
               onClick={() => order(food)}
               className={food === itemMove ? `${food} selectedFood` : `${food}`}
             >
-              
               { idx + 1 } { food }
             </div>
           )) }
@@ -43,8 +45,8 @@ const Food = ({foods, index, itemMove, order, moveUp, moveDown}) => {
 }
 const getData = state => ({
   foods: getFoods(state),
-  index: getIndex(state),
-  itemMove: getItemMove(state)
+  index: getFoodIndex(state),
+  itemMove: getFoodItemMove(state)
 })
 
 const getMethods = dispatch => ({

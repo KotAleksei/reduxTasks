@@ -11,13 +11,11 @@ Array.prototype.move = function (index, step) {
 }
 
 export const order = (item) => ({type: ORDER, itemMove: item})
-export const moveUp = (items, index) => {
-  return ({
+export const moveUp = (items, index) => ({
     type: MOVE_UP,
     items: items.move(index, -1),
     index: index - 1
-  })
-};
+  });
 export const moveDown = (items, index) => ({
   type: MOVE_DOWN,
   items: items.move(index, 1),
@@ -25,7 +23,6 @@ export const moveDown = (items, index) => ({
 });
 
  const foodReducer = (state = {}, action ) => {
-   
   switch(action.type) {
     case ORDER: 
       return {

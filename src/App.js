@@ -7,6 +7,7 @@ import {
   Switch
 } from 'react-router-dom';
 import Food from './components/orderingFood/Food';
+import Clothes from './components/changingClothes/Clothes';
 
 
 function App() {
@@ -18,19 +19,23 @@ function App() {
             <NavLink to='/reduxTasks' exact >Home</NavLink>
           </li>
           <li>
-            <NavLink to='/reduxTasks/food' >Food</NavLink>
+            <NavLink to='/reduxTasks/food' >Ordering Food</NavLink>
+          </li>
+          <li>
+            <NavLink to='/reduxTasks/clothes' >Changing Clothes</NavLink>
           </li>
         </ul>
       </nav>
       <Switch>
           <Route path='/reduxTasks' exact component={HomePage} />
           <Route path='/reduxTasks/food' component={Food}/>
+          <Route path='/reduxTasks/clothes' component={Clothes} />
       </Switch>
     </Router>
   );
 }
 
 const HomePage = () => <h1>Home Page</h1>
-// const Food = () => <h2>Food Page</h2>
+
 
 export default App;
