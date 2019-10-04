@@ -1,66 +1,43 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { connect } from 'react-redux'; 
-import { getClothes, getClothesIndex, getClothesItemChooses, getClothesItem } from '../store';
-import { setValue, orderClothes } from './clothesReducer';
+import { getClothes, getClothesIndex, getClothesItem } from '../store';
+import { setValue, orderClothes, handleSubmit } from './clothesReducer';
 
-
-const Clothes = ({clothes, itemChooses, index, setValue, orderClothes, newItem}) => {
-  
-  const inputRef = useRef(null);
-  const someFunc = e => console.log('e :', e);
-  // useEffect(() => {
-  //   if(inputRef.current)
-  //     inputRef.current.addEventListener('keydown', someFunc);
-  //   return () => {
-  //     if(inputRef.current)
-  //       inputRef.current.removeEventListener('kedown', someFunc);
-  //   }
-  // })
-  // console.log(clothes);
+const Clothes = ({clothes, index, setValue, orderClothes, newItem, handleSubmit}) => {
   return (
     <div>
       <ul>
-        {
-          
-          clothes.map((cloth, idx) => (
-            <li key={cloth}>
-              {/* {console.log(' 1:', clothes.indexOf(cloth) === index  )} */}
-            {  clothes.indexOf(cloth) === index 
+        { clothes.map((cloth, idx) => (
+            <li key={cloth + index}>
+            { clothes.indexOf(cloth) === index 
               ? <input 
-                  ref={inputRef}
                   type="text" 
                   value={newItem ? newItem : cloth} 
                   autoFocus 
-                  onChange={e => {
-                    // console.log(e.nativeEvent);
-                    setValue(e.target.value, itemChooses, clothes)
-                  }} 
-                  onKeyDown={(e) => console.log(e.key)}
-                  />
+                  onChange={e => setValue(e.target.value, index, clothes)} 
+                  onKeyDown={e => e.key === 'Enter' ? handleSubmit( index, clothes) : null} />
               : <>
                   <span>{cloth}</span> 
-                  <button onClick={() => orderClothes(cloth, idx)}>Edit</button>
+                  <button onClick={() => orderClothes(idx)}>Edit</button>
                 </>
             }
             </li>
-          ))
-        }
+          )) }
       </ul>
     </div>
   )
 }
 
-
 const getData = state => ({
   clothes: getClothes(state),
-  itemChooses: getClothesItemChooses(state),
   index: getClothesIndex(state),
   newItem: getClothesItem(state)
 });
 
 const getMethods = dispatch => ({
-  setValue: (value,itemChooses ,clothes) => dispatch(setValue(value,itemChooses, clothes)),
-  orderClothes: (cloth, index) => dispatch(orderClothes(cloth, index))
+  setValue: (value, index, clothes) => dispatch( setValue(value, index, clothes)),
+  orderClothes: index => dispatch( orderClothes(index)),
+  handleSubmit: (index, clothes) => dispatch( handleSubmit(index, clothes))
 })
 
 export default connect(
