@@ -9,6 +9,16 @@
   align-items: flex-start;
   /* background-color: lightgoldenrodyellow; */
   background: linear-gradient(to right, rgba(209,52,21,1) 0%, rgba(223,65,38,1) 51%, rgba(185,46,24,1) 71%, rgba(186,41,18,1) 93%, rgba(178,46,31,1) 100%);
+  position: relative;
+}
+.showFood {
+  position: absolute;
+  top: 250px;
+  right: 150px;
+}
+.showItem {
+  margin-top: 10px;
+  color: white;
 }
 .foodsTittle {
   align-self: center;

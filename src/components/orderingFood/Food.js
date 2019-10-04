@@ -8,11 +8,18 @@ const Food = ({foods, index, itemMove, order, moveUp, moveDown}) => {
   const disabledMoveUpBtn = itemMove && index > 0 ? false : true;
   const disabledMoveDownBtn = itemMove && index < foods.length - 1 ? false : true;
   const foodRef = useRef(null);
+
   const loseFocus = (event) => { 
+    
     const childrenAppElement = event.target.parentElement === foodRef.current;
     const foodsAppElement = event.target === foodRef.current;
-    
-    return (foodsAppElement || childrenAppElement) ? null : order('');
+    let showItemElemnt = null;
+    if(event.target.parentElement) {
+      showItemElemnt = event.target.parentElement.parentElement === foodRef.current;
+    }
+    const isLoseFocus = showItemElemnt || foodsAppElement || childrenAppElement;
+
+    return isLoseFocus ? null : order('');
   }
 
   useEffect(() => {
@@ -40,6 +47,14 @@ const Food = ({foods, index, itemMove, order, moveUp, moveDown}) => {
       <button disabled={disabledMoveDownBtn} onClick={() => moveDown(foods, index)} className="moveDownBtn"> 
           Move Down
       </button>
+      {
+        itemMove 
+        ? <div className='showFood'>
+            <div>Order Food</div>
+            <div className="showItem">{itemMove}</div>
+          </div> 
+        : null
+      }
       </div>
   )
 }
