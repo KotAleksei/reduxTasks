@@ -11,7 +11,7 @@ export const getFoodIndex = state => state.foods.index;
 export const getClothes = state => state.clothes.clothes;
 export const getClothesItemChooses = state => state.clothes.itemChooses;
 export const getClothesIndex = state => state.clothes.index;
-export const getClothesItem = state => state.clothes.newItem;
+export const getClothesItem = state => state.clothes.inputValue;
 
 const reducer = combineReducers({
   foods: foodReducer,
@@ -28,7 +28,7 @@ const initialState = {
     clothes: ['Apron', 'Belt', 'Cardigan', 'Dress', 'Earrings', 'Fur coat', 'Gloves', 'Hat'],
     index: null,
     itemChooses: '',
-    newItem: ''
+    inputValue: null
   }
 };
 const store = createStore(reducer, initialState);

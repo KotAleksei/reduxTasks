@@ -1,0 +1,9 @@
+.clothesList {
+  list-style-type: none;
+}
+.clothesItem {
+  display: flex;
+  width: 150px;
+  justify-content: space-between;
+  margin-top: 10px;
+}

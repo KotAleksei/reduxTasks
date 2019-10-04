@@ -2,18 +2,20 @@ const ORDER = 'ORDER';
 const SET_VALUE = 'SET_VALUE';
 const HANDLE_SUBMIT = 'HANDLE_SUBMIT';
 
-export const orderClothes = ( index) => ({type: 'ORDER', index});
-export const setValue = (value, index, items) => {
+export const orderClothes = (item, index) => {
+  return ({type: 'ORDER', index, item})
+};
+export const setValue = (value, items) => {
   const newItems = [...items];
-  newItems[index] = value; 
   return {
     type: SET_VALUE,
     newItem: value,
     items: newItems
   }
 }
-export const handleSubmit = (index, items) => {
+export const handleSubmit = (index, items, inputValue) => {
   let newItems = [...items];
+  newItems[index] = inputValue; 
   if(newItems[index].trim() === ''){
     newItems = [
       ...newItems.slice(0, index),
@@ -22,7 +24,7 @@ export const handleSubmit = (index, items) => {
   }
   return {
     type: HANDLE_SUBMIT,
-    newItem: '',
+    inputValue: '',
     index: null,
     items: newItems
   }
@@ -34,17 +36,18 @@ const clothesReducer = (state = {}, action) => {
       return {
         ...state,
         index: action.index,
+        inputValue: action.item
       }
     case SET_VALUE:
       return {
         ...state,
-        newItem: action.newItem,
+        inputValue: action.newItem,
         clothes: action.items
       }
     case HANDLE_SUBMIT:
       return {
         ...state,
-        newItem: action.newItem,
+        inputValue: action.inputValue,
         index: action.index,
         clothes: action.items
       }

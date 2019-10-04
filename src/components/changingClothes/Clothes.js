@@ -2,23 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux'; 
 import { getClothes, getClothesIndex, getClothesItem } from '../store';
 import { setValue, orderClothes, handleSubmit } from './clothesReducer';
+import './style.css';
 
-const Clothes = ({clothes, index, setValue, orderClothes, newItem, handleSubmit}) => {
+const Clothes = ({clothes, index, setValue, orderClothes, inputValue, handleSubmit}) => {
+  const arrOfIndex = clothes.map((cloth, idx) => ({ [idx]: cloth}));
   return (
     <div>
-      <ul>
+      <ul className="clothesList">
         { clothes.map((cloth, idx) => (
-            <li key={cloth + index}>
-            { clothes.indexOf(cloth) === index 
+            <li key={idx} className="clothesItem" >
+            {
+              arrOfIndex.indexOf(arrOfIndex[idx]) === index 
               ? <input 
                   type="text" 
-                  value={newItem ? newItem : cloth} 
+                  value={inputValue} 
                   autoFocus 
-                  onChange={e => setValue(e.target.value, index, clothes)} 
-                  onKeyDown={e => e.key === 'Enter' ? handleSubmit( index, clothes) : null} />
+                  onChange={e => {
+                    setValue(e.target.value, clothes)}} 
+                  onKeyDown={e => e.key === 'Enter' ? handleSubmit( index, clothes, inputValue) : null}
+                  />
               : <>
-                  <span>{cloth}</span> 
-                  <button onClick={() => orderClothes(idx)}>Edit</button>
+                  <span className="clotheName">{cloth}</span> 
+                  <button onClick={() => orderClothes(cloth, idx)} className="closeBtn">Edit</button>
                 </>
             }
             </li>
@@ -31,13 +36,13 @@ const Clothes = ({clothes, index, setValue, orderClothes, newItem, handleSubmit}
 const getData = state => ({
   clothes: getClothes(state),
   index: getClothesIndex(state),
-  newItem: getClothesItem(state)
+  inputValue: getClothesItem(state)
 });
 
 const getMethods = dispatch => ({
-  setValue: (value, index, clothes) => dispatch( setValue(value, index, clothes)),
-  orderClothes: index => dispatch( orderClothes(index)),
-  handleSubmit: (index, clothes) => dispatch( handleSubmit(index, clothes))
+  setValue: (value, clothes) => dispatch( setValue(value, clothes)),
+  orderClothes: (cloth, index) => dispatch( orderClothes(cloth, index)),
+  handleSubmit: (index, clothes, newItem) => dispatch( handleSubmit(index, clothes, newItem))
 })
 
 export default connect(
