@@ -2,14 +2,12 @@ const ORDER = 'ORDER';
 const SET_VALUE = 'SET_VALUE';
 const HANDLE_SUBMIT = 'HANDLE_SUBMIT';
 
-export const orderClothes = (item, index) => {
-  return ({type: 'ORDER', index, item})
-};
+export const orderClothes = (item, index) => ({type: 'ORDER', index, item});
 export const setValue = (value, items) => {
   const newItems = [...items];
   return {
     type: SET_VALUE,
-    newItem: value,
+    inputValue: value,
     items: newItems
   }
 }
@@ -41,7 +39,7 @@ const clothesReducer = (state = {}, action) => {
     case SET_VALUE:
       return {
         ...state,
-        inputValue: action.newItem,
+        inputValue: action.inputValue,
         clothes: action.items
       }
     case HANDLE_SUBMIT:

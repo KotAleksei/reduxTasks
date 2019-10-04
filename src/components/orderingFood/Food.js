@@ -10,14 +10,13 @@ const Food = ({foods, index, itemMove, order, moveUp, moveDown}) => {
   const foodRef = useRef(null);
 
   const loseFocus = (event) => { 
-    
     const childrenAppElement = event.target.parentElement === foodRef.current;
     const foodsAppElement = event.target === foodRef.current;
     let showItemElemnt = null;
     if(event.target.parentElement) {
       showItemElemnt = event.target.parentElement.parentElement === foodRef.current;
     }
-    const isLoseFocus = showItemElemnt || foodsAppElement || childrenAppElement;
+    const isLoseFocus = showItemElemnt || childrenAppElement || foodsAppElement;
 
     return isLoseFocus ? null : order('');
   }

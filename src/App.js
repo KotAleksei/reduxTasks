@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import Food from './components/orderingFood/Food';
 import Clothes from './components/changingClothes/Clothes';
+import ToDo from './components/toDoApp/ToDo';
 
 
 function App() {
@@ -24,12 +25,16 @@ function App() {
           <li>
             <NavLink to='/reduxTasks/clothes' >Changing Clothes</NavLink>
           </li>
+          <li>
+            <NavLink to='/reduxTasks/todo' >ToDo App</NavLink>
+          </li>
         </ul>
       </nav>
       <Switch>
           <Route path='/reduxTasks' exact component={HomePage} />
           <Route path='/reduxTasks/food' component={Food}/>
           <Route path='/reduxTasks/clothes' component={Clothes} />
+          <Route path='/reduxTasks/todo' component={ToDo}/>
       </Switch>
     </Router>
   );
