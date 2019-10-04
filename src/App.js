@@ -14,7 +14,7 @@ function App() {
   return (
     <Router >
       <nav>
-        <ul>
+        <ul className='navPanel'>
           <li>
             <NavLink to='/reduxTasks' exact >Home</NavLink>
           </li>
@@ -35,7 +35,7 @@ function App() {
   );
 }
 
-const HomePage = () => <h1>Home Page</h1>
+const HomePage = () => <h1 className="homePage">Home Page</h1>
 
 
 export default App;

@@ -1,6 +1,8 @@
 import { createStore, combineReducers } from 'redux';
 import foodReducer from './orderingFood/foodReducer';
 import clothesReducer from './changingClothes/clothesReducer';
+import foods from '../api/foods';
+import clothes from '../api/clothes';
 
 // for Foods App
 export const getFoods = state => state.foods.foods;
@@ -19,17 +21,8 @@ const reducer = combineReducers({
 })
 
 const initialState = {
-  foods: {
-    foods: ['Apple', 'Bread', 'Carrot', 'Dumplings', 'Eggs', 'Fish', 'Carlic', 'Honey', 'Ice Cream', 'Jam'],
-    itemMove: '',
-    index: null,
-  },
-  clothes: {
-    clothes: ['Apron', 'Belt', 'Cardigan', 'Dress', 'Earrings', 'Fur coat', 'Gloves', 'Hat'],
-    index: null,
-    itemChooses: '',
-    inputValue: null
-  }
+  foods,
+  clothes
 };
 const store = createStore(reducer, initialState);
 

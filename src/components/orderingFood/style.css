@@ -4,10 +4,14 @@
   padding: 10px;
   width: 600px;
   margin: 0 auto;
-  background-color: rgb(139, 82, 82);;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* background-color: lightgoldenrodyellow; */
+  background: linear-gradient(to right, rgba(209,52,21,1) 0%, rgba(223,65,38,1) 51%, rgba(185,46,24,1) 71%, rgba(186,41,18,1) 93%, rgba(178,46,31,1) 100%);
 }
 .foodsTittle {
-  text-align: center;
+  align-self: center;
 }
 .foodsApp > button {
   display: block;
@@ -23,11 +27,11 @@
 }
 .foodsApp > div {
   padding: 8px 20px;
-  color: white;
 }
 .foodsApp > div:hover {
   cursor: pointer;
 }
 .selectedFood.selectedFood {
-  color: black;
+  color: white;
+  
 }
