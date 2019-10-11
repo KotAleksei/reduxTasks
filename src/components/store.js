@@ -17,6 +17,7 @@ export const getClothesItem = state => state.clothes.inputValue;
 
 // for ToDo App
 export const getTodos = state => state.todo.todos;
+export const getInputCreateValue = state => state.todo.inputCreateValue;
 
 const reducer = combineReducers({
   foods: foodReducer,
@@ -28,9 +29,8 @@ const initialState = {
   foods,
   clothes,
   todo: {
-    activeTodos: [],
-    completedTodos: [],
-    
+    todos: [],
+    inputCreateValue: ''
   }
 };
 const store = createStore(reducer, initialState);
